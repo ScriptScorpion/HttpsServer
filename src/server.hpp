@@ -10,5 +10,5 @@ class Server {
          sockaddr_in Server_addr {};
      public:
          bool Start(const int &port);
-         void Info_Sender(SSL *ssl, const int &CL_sock, const char *buff);
+         void Parse(SSL *ssl, const int &CL_sock, const char *buff);
 };                     
