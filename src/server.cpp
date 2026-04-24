@@ -91,7 +91,7 @@ bool Server::Start(const int &port) {
         if (received_bytes > 0 && received_bytes <= sizeof(buff)) {
             buff[received_bytes] = '\0';
             std::cout << buff << std::endl;
-            Info_Sender(ssl, CL_sock, buff);
+            Parse(ssl, CL_sock, buff);
             memset(buff, 0, sizeof(buff));
             SSL_free(ssl);
             SSL_shutdown(ssl);
@@ -104,7 +104,7 @@ bool Server::Start(const int &port) {
     close(SV_sock);
     return true;
 }
-void Server::Info_Sender(SSL *ssl, const int &CL_sock, const char *buff) {
+void Server::Parse(SSL *ssl, const int &CL_sock, const char *buff) {
     std::string Method = "";
     std::string Path = "";
     std::string Version = "";
