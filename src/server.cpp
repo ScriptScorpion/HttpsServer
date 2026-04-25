@@ -90,7 +90,7 @@ bool Server::Start(const int &port) {
         int received_bytes = SSL_read(ssl, buff, sizeof(buff) - 1);
         if (received_bytes > 0 && received_bytes <= sizeof(buff)) {
             buff[received_bytes] = '\0';
-            std::cout << buff << std::endl;
+            std::cout << "\n\n" << buff << "\n\n";
             Parse(ssl, CL_sock, buff);
             memset(buff, 0, sizeof(buff));
             SSL_free(ssl);
