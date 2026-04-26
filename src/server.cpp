@@ -44,7 +44,7 @@ bool Server::Start(const int &port) {
     if (!ctx) {
         std::cerr << "Failed to create CTX config" << std::endl;
         close(SV_sock);
-        exit(1);
+        return false;
     }
 
 
@@ -55,21 +55,21 @@ bool Server::Start(const int &port) {
         std::cerr << "Certificate file doesn't exists or expired" << std::endl;
         SSL_CTX_free(ctx);
         close(SV_sock);
-        exit(1);
+        return false;
     }
 
     if (SSL_CTX_use_PrivateKey_file(ctx, "src/key.pem", SSL_FILETYPE_PEM) <= 0) {
         std::cerr << "Private key file doesn't exists or expired or incorrect private key inputted" << std::endl;
         SSL_CTX_free(ctx);
         close(SV_sock);
-        exit(1);
+        return false;
     }
 
     if (!SSL_CTX_check_private_key(ctx)) {
         std::cerr << "Certificate and private key don't match" << std::endl;
         SSL_CTX_free(ctx);
         close(SV_sock);
-        exit(1);
+        return false;
     }
     std::cout << "\nStarted listening on this address https://127.0.0.1:" << port << "\n\n";
 
